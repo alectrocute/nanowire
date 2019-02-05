@@ -7,7 +7,7 @@ set -o nounset
 
 usage() {
     cat 1>&2 <<EOF
-Configures simultaneous AP and Managed Mode Wifi on Raspberry Pi
+Configures simultaneous AP and Managed Mode wifi on Raspberry Pi
 
 USAGE:
     rpi-wifi -a <ap_ssid> [<ap_password>] -c <client_ssid> [<client_password>]
