@@ -1,3 +1,5 @@
+Currently supported: rp0w
+
 Modify, apply `wpa_supplicant.conf` and blank file `ssh` to boot filesystem before first boot.
 
 Boot device and connect via SSH.
