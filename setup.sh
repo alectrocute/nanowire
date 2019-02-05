@@ -4,8 +4,11 @@
 
 # mac address of usb wifi dongle
 apMAC="00:00:00:00:00:00"
+# driver for usb wifi dongle
 apDriver="n180211"
+# name of new AP
 apSSID="nanoWire"
+# password for new AP
 apPass="raspberry"
 
 
