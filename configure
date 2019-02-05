@@ -1,12 +1,17 @@
 #!/bin/bash
 
+# Error management
+set -o errexit
+set -o pipefail
+set -o nounset
+
 usage() {
     cat 1>&2 <<EOF
 Configures simultaneous AP and Managed Mode Wifi on Raspberry Pi
 
 USAGE:
-    rpi-wifi -a <ap_ssid> [<ap_password>] -c <client_ssid> [<client_password>]
-
+    rpi-wifi -a <ap_ssid> [<ap_password>] -c <client_password> [<client_password>]
+    
     rpi-wifi -a MyAP myappass -c MyWifiSSID mywifipass
 
 PARAMETERS:
@@ -71,7 +76,7 @@ MAC_ADDRESS="$(cat /sys/class/net/wlan0/address)"
 # Install dependencies
 sudo apt -y update
 sudo apt -y upgrade
-sudo apt -y install dnsmasq dhcpcd hostapd
+sudo apt -y install dnsmasq dhcpcd hostapd cron
 
 # Populate `/etc/udev/rules.d/70-persistent-net.rules`
 sudo bash -c 'cat > /etc/udev/rules.d/70-persistent-net.rules' << EOF
@@ -116,9 +121,8 @@ DAEMON_CONF="/etc/hostapd/hostapd.conf"
 EOF
 
 # Populate `/etc/wpa_supplicant/wpa_supplicant.conf`
-if [ $CLIENT_SSID ]; then
 sudo bash -c 'cat > /etc/wpa_supplicant/wpa_supplicant.conf' << EOF
-country=SE
+country=US
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
 
@@ -128,7 +132,6 @@ network={
     id_str="AP1"
 }
 EOF
-fi
 
 # Populate `/etc/network/interfaces`
 sudo bash -c 'cat > /etc/network/interfaces' << EOF
@@ -157,16 +160,16 @@ echo 'Starting Wifi AP and client...'
 sleep 30
 sudo ifdown --force wlan0
 sudo ifdown --force ap0
-sudo ifup wlan0
 sudo ifup ap0
+sudo ifup wlan0
 sudo sysctl -w net.ipv4.ip_forward=1
 sudo iptables -t nat -A POSTROUTING -s ${AP_IP_BEGIN}.0/24 ! -d ${AP_IP_BEGIN}.0/24 -j MASQUERADE
 sudo systemctl restart dnsmasq
 EOF
 sudo chmod +x /bin/rpi-wifi.sh
 
-# setup cron job on boot
-crontab -l | { cat; echo "@reboot /bin/rpi-wifi.sh >> /home/pi/rpi-wifi.log 2>&1"; } | crontab -
+# Configure cron job
+crontab -l | { cat; echo "@reboot /bin/rpi-wifi.sh"; } | crontab -
 
 # Finish
 echo "Wifi configuration is finished! Please reboot your Raspberry Pi to apply changes..."
