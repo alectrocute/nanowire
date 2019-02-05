@@ -1,19 +1,19 @@
 #!/bin/bash
 
-# Error management
-set -o errexit
-set -o pipefail
-set -o nounset
-
 usage() {
     cat 1>&2 <<EOF
-Configure rp0w's wireless network
-Example:
+Configures simultaneous AP and Managed Mode Wifi on Raspberry Pi
+
+USAGE:
+    rpi-wifi -a <ap_ssid> [<ap_password>] -c <client_ssid> [<client_password>]
+
     rpi-wifi -a MyAP myappass -c MyWifiSSID mywifipass
+
 PARAMETERS:
     -a, --ap      	AP SSID & password
     -c, --client	Client SSID & password
     -i, --ip            AP IP
+
 FLAGS:
     -n, --no-internet   Disable IP forwarding
     -h, --help          Show this help
@@ -71,7 +71,7 @@ MAC_ADDRESS="$(cat /sys/class/net/wlan0/address)"
 # Install dependencies
 sudo apt -y update
 sudo apt -y upgrade
-sudo apt -y install dnsmasq dhcpcd hostapd cron
+sudo apt -y install dnsmasq dhcpcd hostapd
 
 # Populate `/etc/udev/rules.d/70-persistent-net.rules`
 sudo bash -c 'cat > /etc/udev/rules.d/70-persistent-net.rules' << EOF
@@ -116,29 +116,35 @@ DAEMON_CONF="/etc/hostapd/hostapd.conf"
 EOF
 
 # Populate `/etc/wpa_supplicant/wpa_supplicant.conf`
+if [ $CLIENT_SSID ]; then
 sudo bash -c 'cat > /etc/wpa_supplicant/wpa_supplicant.conf' << EOF
-country=US
+country=SE
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
 update_config=1
+
 network={
     ssid="${CLIENT_SSID}"
     $([ $CLIENT_PASSPHRASE ] && echo "psk=\"${CLIENT_PASSPHRASE}\"")
     id_str="AP1"
 }
 EOF
+fi
 
 # Populate `/etc/network/interfaces`
 sudo bash -c 'cat > /etc/network/interfaces' << EOF
 source-directory /etc/network/interfaces.d
+
 auto lo
 auto ap0
 auto wlan0
 iface lo inet loopback
+
 allow-hotplug ap0
 iface ap0 inet static
     address ${AP_IP}
     netmask 255.255.255.0
     hostapd /etc/hostapd/hostapd.conf
+
 allow-hotplug wlan0
 iface wlan0 inet manual
     wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
@@ -151,16 +157,16 @@ echo 'Starting Wifi AP and client...'
 sleep 30
 sudo ifdown --force wlan0
 sudo ifdown --force ap0
-sudo ifup ap0
 sudo ifup wlan0
+sudo ifup ap0
 sudo sysctl -w net.ipv4.ip_forward=1
 sudo iptables -t nat -A POSTROUTING -s ${AP_IP_BEGIN}.0/24 ! -d ${AP_IP_BEGIN}.0/24 -j MASQUERADE
 sudo systemctl restart dnsmasq
 EOF
 sudo chmod +x /bin/rpi-wifi.sh
 
-# Configure cron job
-crontab -l | { cat; echo "@reboot /bin/rpi-wifi.sh"; } | crontab -
+# setup cron job on boot
+crontab -l | { cat; echo "@reboot /bin/rpi-wifi.sh >> /home/pi/rpi-wifi.log 2>&1"; } | crontab -
 
 # Finish
-echo "Wifi configuration is finished! Please reboot to apply changes..."
+echo "Wifi configuration is finished! Please reboot your Raspberry Pi to apply changes..."
