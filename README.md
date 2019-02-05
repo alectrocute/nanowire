@@ -6,4 +6,4 @@ Boot device and connect via SSH.
 
 Grab configuration script and execute (change out parameters in bash command) -
 
-`curl https://raw.githubusercontent.com/alectrocute/nanowire/master/config | bash -s -- -a MyAP myappass -c WifiSSID wifipass`
+`curl https://raw.githubusercontent.com/alectrocute/nanowire/master/configure | bash -s -- -a MyAP myappass -c WifiSSID wifipass`
