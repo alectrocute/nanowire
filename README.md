@@ -10,7 +10,7 @@ Modify, apply `wpa_supplicant.conf` and blank file `ssh` to boot filesystem befo
 
 Boot device and connect via SSH.
 
-Grab configuration script and execute (change out parameters in bash command, wifiName and wifiPass would mirror your settings in `wpa_supplicant.conf`, usually) -
+Grab configuration script and execute (change out parameters in bash command, wifiName and wifiPass would mirror your settings in `wpa_supplicant.conf`, usually & set apName and apPass to whatever you desire) -
 
 `curl https://raw.githubusercontent.com/alectrocute/nanowire/master/configure | bash -s -- -a apName apPass -c wifiName wifiPass`
 
