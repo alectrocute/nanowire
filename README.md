@@ -21,7 +21,7 @@ Grab configuration script and execute (change out parameters in bash command, wi
 
 For some reason, cron failed the first time I ran the command. You may need to run the identical command twice for some odd reason.
 
-You should now be able to connect to the new wifi network named and protected after your apName and apPass parameter respectively. It should pass through your traffic to the client network, and `192.168.10.1` or `http://nanowire.local` should return the nginx default page. The device should be accessible via client-side (eg. `ssh pi@192.168.1.177` while connected to your home firewall router) or AP-side (`ssh pi@192.168.10.1`).
+You should now be able to connect to the new wifi network named and protected after your apName and apPass parameter respectively. It should pass through your traffic to the client network, and `192.168.10.1` or `http://nanowire.local` should return the nginx default page. The device should be accessible via client-side (eg. `ssh pi@192.168.1.***` while connected to your home firewall router) or AP-side (`ssh pi@192.168.10.1` while connected on the rpi0w's access point).
 
 ### Post-install Notes
 
