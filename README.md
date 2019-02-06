@@ -14,6 +14,8 @@ Grab configuration script and execute (change out parameters in bash command, wi
 
 `curl https://raw.githubusercontent.com/alectrocute/nanowire/master/configure | bash -s -- -a apName apPass -c wifiName wifiPass`
 
+For some reason, cron failed the first time I ran the command. You may need to run the identical command twice for some odd reason.
+
 ### Post-install Notes
 
 ipv6 bug from hereonout with Jessie Lite, need to setup ipv6 forwarding...
