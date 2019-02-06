@@ -19,3 +19,9 @@ ipv6 bug from hereonout with Jessie Lite, need to setup ipv6 forwarding...
 `echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4`
 
 `sudo apt-get install nginx -y`
+
+`sudo nano /etc/dnsmasq.conf`
+
+Add the following line:
+
+`addn-hosts=/etc/dnsmasq.hosts`
