@@ -38,4 +38,4 @@ In `/etc/dnsmasq.hosts`, create the file and add the contents:
 
 Configure nginx now in `/etc/nginx/sites-available/default`
 
-`server_name nanowire.com`
+`server_name _` for catch-all
