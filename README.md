@@ -2,6 +2,8 @@
 
 Currently supported: rp0w
 
+Any instance of `nanowire.com` is a placeholder TLD, as is the project name itself.
+
 ### Installation
 
 Modify, apply `wpa_supplicant.conf` and blank file `ssh` to boot filesystem before first boot.
@@ -29,13 +31,11 @@ Add the following line:
 In `/etc/dnsmasq.hosts`, create the file and add the contents:
 
 ```
-192.168.10.1 settings
-192.168.10.1 nanowire.settings
-192.168.10.1 nanowire.local
+192.168.10.1 nanowire.com
 ```
 
 (just playing around with the possibilites)
 
 Configure nginx now in `/etc/nginx/sites-available/default`
 
-`server_name settings`
+`server_name nanowire.com`
