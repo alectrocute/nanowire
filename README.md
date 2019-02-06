@@ -25,3 +25,13 @@ ipv6 bug from hereonout with Jessie Lite, need to setup ipv6 forwarding...
 Add the following line:
 
 `addn-hosts=/etc/dnsmasq.hosts`
+
+In `/etc/dnsmasq.hosts`, create the file and add the contents:
+
+```
+192.168.10.1 settings
+192.168.10.1 nanowire.settings
+192.168.10.1 nanowire.local
+```
+
+(just playing around with the possibilites)
