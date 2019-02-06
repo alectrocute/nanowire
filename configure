@@ -90,9 +90,11 @@ sudo bash -c 'cat > /etc/dnsmasq.conf' << EOF
 interface=lo,ap0
 no-dhcp-interface=lo,wlan0
 bind-interfaces
-server=192.168.10.1
+server=1.1.1.1
 domain-needed
 bogus-priv
+no-hosts
+addn-hosts=/etc/dnsmasq.hosts
 dhcp-range=${AP_IP_BEGIN}.50,${AP_IP_BEGIN}.150,12h
 EOF
 
