@@ -35,3 +35,7 @@ In `/etc/dnsmasq.hosts`, create the file and add the contents:
 ```
 
 (just playing around with the possibilites)
+
+Configure nginx now in `/etc/nginx/sites-available/default`
+
+`server_name settings`
