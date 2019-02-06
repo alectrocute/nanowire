@@ -1,3 +1,8 @@
+### "What is this?"
+
+If you don't know right off the bat, then disregard this entire repo. It's a work in progress. :(
+
+
 ### Notes
 
 Currently supported: rp0w
