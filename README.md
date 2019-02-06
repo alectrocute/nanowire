@@ -36,6 +36,8 @@ In `/etc/dnsmasq.hosts`, create the file and add the contents:
 
 (just playing around with the possibilites)
 
+This will provide the user configuration panel for the device.
+
 Configure nginx now in `/etc/nginx/sites-available/default`
 
 `server_name _` for catch-all
