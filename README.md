@@ -14,30 +14,8 @@ Grab configuration script and execute (change out parameters in bash command) -
 
 `curl https://raw.githubusercontent.com/alectrocute/nanowire/master/configure | bash -s -- -a MyAP myappass -c WifiSSID wifipass`
 
-### Possible next steps (WIP)
+### Post-install Notes
 
 ipv6 bug from hereonout with Jessie Lite, need to setup ipv6 forwarding...
 
 `echo 'Acquire::ForceIPv4 "true";' | sudo tee /etc/apt/apt.conf.d/99force-ipv4`
-
-`sudo apt-get install nginx -y`
-
-`sudo nano /etc/dnsmasq.conf`
-
-Add the following line:
-
-`addn-hosts=/etc/dnsmasq.hosts`
-
-In `/etc/dnsmasq.hosts`, create the file and add the contents:
-
-```
-192.168.10.1 nanowire.com
-```
-
-(just playing around with the possibilites)
-
-This will provide the user configuration panel for the device.
-
-Configure nginx now in `/etc/nginx/sites-available/default`
-
-`server_name _` for catch-all
