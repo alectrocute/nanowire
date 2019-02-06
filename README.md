@@ -7,7 +7,7 @@ If you don't know right off the bat, then disregard this entire repo. It's a wor
 
 Currently supported: rp0w
 
-Any instance of `nanowire`, `nanowire.local` is a placeholder TLD, as is the project name itself.
+Any instance of `nanowire`, `nanowire.local` is a placeholder domain, as is the project name itself.
 
 ### Installation
 
