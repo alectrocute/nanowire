@@ -1,2 +1,2 @@
 # user table
-username | password | full name | email | billing address | stripe customer ID | billing plan | registration date | verified_email | public key | private key
+username | password | full name | email | billing address | stripe customer ID | billing plan | registration date | verified_email? | public key | private key | gateways
